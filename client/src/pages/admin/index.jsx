@@ -25,7 +25,14 @@ function AdminDashboardpage() {
     const response = await adminStatsService();
     setStats(response.data);
 
-   
+    // if (response?.success) setInstructorCoursesList(response?.data);
+    // console.log(response?.data);
+    // if (response?.success) {
+    //   const filteredCourses = response?.data?.filter(
+    //     course => course.instructorId === auth?.user?._id
+    //   );
+    //   setInstructorCoursesList(filteredCourses);
+    // }
   }
 
   useEffect(() => {
@@ -39,7 +46,12 @@ function AdminDashboardpage() {
       value: 'dashboard',
       component: <AdminDashboard listOfCourses={stats} />,
     },
-    
+    // {
+    //   icon: Book,
+    //   label: 'Courses',
+    //   value: 'courses',
+    //   component: <InstructorCourses listOfCourses={instructorCoursesList} />,
+    // },
     {
       icon: LogOut,
       label: 'Logout',
@@ -128,6 +140,66 @@ function AdminDashboardpage() {
     </div>
   );
 
+  //   const instructorStats = stats?.instructorStats || [];
+
+  //   const instructorCount = stats?.instructorCount || 0;
+  //   const studentCount = stats?.studentCount || 0;
+  //   const courseCount = stats?.courseCount || 0;
+
+  //   return (
+  //     <div className='admin-dashboard'>
+  //       <h1>Admin Dashboard</h1>
+  //       <div className='dashboard-stats'>
+  //         <div className='stat-card'>
+  //           <h2>Instructors</h2>
+  //           <p>{instructorCount}</p>
+  //         </div>
+  //         <div className='stat-card'>
+  //           <h2>Students</h2>
+  //           <p>{studentCount}</p>
+  //         </div>
+  //         <div className='stat-card'>
+  //           <h2>Courses</h2>
+  //           <p>{courseCount}</p>
+  //         </div>
+  //       </div>
+
+  //       {/* Instructors Table */}
+  //       <div className='instructors-table'>
+  //         <h2>Instructor Details</h2>
+  //         <table>
+  //           <thead>
+  //             <tr>
+  //               <th>Instructor Name</th>
+
+  //               <th>Courses</th>
+  //               <th>Total Students</th>
+  //               <th>Total Revenue</th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             {instructorStats.length > 0 ? (
+  //               instructorStats.map((instructor, index) => (
+  //                 <tr key={index}>
+  //                   <td>{instructor.instructorName}</td>
+  //                   {/* <td>{instructor.email}</td>
+  //                   <td>{instructor.courseCount}</td> */}
+  //                   <td>{instructor.courses.length}</td>
+
+  //                   <td>{instructor.totalStudents}</td>
+  //                   <td>${instructor.totalRevenue.toFixed(2)}</td>
+  //                 </tr>
+  //               ))
+  //             ) : (
+  //               <tr>
+  //                 <td colSpan='5'>No instructors available.</td>
+  //               </tr>
+  //             )}
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     </div>
+  //   );
 }
 
 export default AdminDashboardpage;

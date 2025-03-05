@@ -12,9 +12,9 @@ function MediaProgressbar({ isMediaUploading, progress }) {
     } else {
       const timer = setTimeout(() => {
         setShowProgress(false);
-      }, 1000);  // Hides the progress bar after 1 second
+      }, 1000);
 
-      return () => clearTimeout(timer); // Cleanup to avoid memory leaks
+      return () => clearTimeout(timer);
     }
   }, [isMediaUploading, progress]);
 

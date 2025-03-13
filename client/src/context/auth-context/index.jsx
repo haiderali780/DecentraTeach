@@ -79,7 +79,7 @@
 //   }
 
 //   useEffect(() => {
-//     checkAuthUser();
+//     checkAuthUser();••••••••••
 //   }, []);
 
 //   console.log(auth, 'gf');
@@ -102,37 +102,55 @@
 //   );
 // }
 
-import { Skeleton } from '@/components/ui/skeleton';
-import { initialSignInFormData, initialSignUpFormData } from '@/config';
-import { checkAuthService, loginService, registerService } from '@/services';
-import { createContext, useEffect, useState } from 'react';
+import {Skeleton} from '@/components/ui/skeleton';
+import {initialSignInFormData, initialSignUpFormData} from '@/config';
+import {checkAuthService, loginService, registerService} from '@/services';
+import {createContext, useEffect, useState} from 'react';
 
 export const AuthContext = createContext(null);
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({children}) {
   const [signInFormData, setSignInFormData] = useState(initialSignInFormData);
   const [signUpFormData, setSignUpFormData] = useState(initialSignUpFormData);
-  const [auth, setAuth] = useState({ authenticate: false, user: null });
+  const [auth, setAuth] = useState({authenticate: false, user: null});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState({ username: null, password: null }); // ⚠️ Error object for specific fields
+  const [error, setError] = useState({username: null, password: null}); // ⚠️ Error object for specific fields
 
   const updateAuth = (isAuthenticated, user = null) => {
-    setAuth({ authenticate: isAuthenticated, user });
+    setAuth({authenticate: isAuthenticated, user});
   };
 
+  // async function handleRegisterUser(event) {
+  //   event.preventDefault();
+  //   try {
+  //     const data = await registerService(signUpFormData);
+  //     if (data.success) {
+  //       console.log('Registration successful:', data);
+  //       setError({ username: null, password: null });
+  //     } else {
+  //       setError({ username: null, password: data.message || 'Registration failed' });
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError({ username: null, password: 'Registration error occurred' });
+  //   }
+  // }
   async function handleRegisterUser(event) {
     event.preventDefault();
+
     try {
       const data = await registerService(signUpFormData);
+
       if (data.success) {
         console.log('Registration successful:', data);
-        setError({ username: null, password: null });
+        setError({username: 'regist', password: 'Sign Up successful. You can now sign in'});
+        // alert('Registration successful! You can now log in.');
       } else {
-        setError({ username: null, password: data.message || 'Registration failed' });
+        setError({username: null, password: 'User already exists with these credentials.'});
       }
     } catch (err) {
       console.error(err);
-      setError({ username: null, password: 'Registration error occurred' });
+      setError({username: '!regist', password: 'User already exists with these credentials.'});
     }
   }
 
@@ -143,21 +161,21 @@ export default function AuthProvider({ children }) {
       if (data.success) {
         sessionStorage.setItem('accessToken', JSON.stringify(data.data.accessToken));
         updateAuth(true, data.data.user);
-        setError({ username: null, password: null }); // Clear errors on success
+        setError({username: null, password: null}); // Clear errors on success
       } else {
         updateAuth(false);
         // ⚠️ Handling specific errors
         if (data.message.includes('username') || data.message.includes('User not found')) {
-          setError({ username: 'Incorrect username', password: null });
+          setError({username: 'Incorrect username', password: null});
         } else if (data.message.includes('password')) {
-          setError({ username: null, password: 'Incorrect password' });
+          setError({username: null, password: 'Incorrect password'});
         } else {
-          setError({ username: null, password: data.message || 'Invalid credentials' });
+          setError({username: null, password: data.message || 'Invalid credentials'});
         }
       }
     } catch (err) {
       console.error(err);
-      setError({ username: null, password: 'Login error occurred' });
+      setError({username: null, password: 'Invalid credentials'});
     }
   }
 
@@ -201,7 +219,7 @@ export default function AuthProvider({ children }) {
         setError, // ⚠️ Error object exposed
       }}
     >
-      {loading ? <Skeleton message="Authenticating..." /> : children}
+      {loading ? <Skeleton message='Authenticating...' /> : children}
     </AuthContext.Provider>
   );
 }

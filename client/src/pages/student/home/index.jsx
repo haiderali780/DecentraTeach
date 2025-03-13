@@ -42,7 +42,7 @@ function StudentHomePage() {
     hidden: {opacity: 0, x: 100}, // Start off-screen to the right
     visible: {opacity: 1, x: 0}, // Animate to fully visible and in position
   };
-  
+
   function handleNavigateToCoursesPage(getCurrentId) {
     console.log(getCurrentId);
     sessionStorage.removeItem('filters');
@@ -80,7 +80,7 @@ function StudentHomePage() {
     <div className='min-h-screen bg-white'>
       <section className='flex flex-col lg:flex-row items-center justify-between py-8 px-4 lg:px-8'>
         {/* Text Section */}
-        <motion.div
+        {/* <motion.div
           className='lg:w-1/2 lg:pr-12 '
           initial={{opacity: 0, x: -50}}
           animate={{opacity: 1, x: 0}}
@@ -88,7 +88,28 @@ function StudentHomePage() {
         >
           <h1 className='text-4xl text-teal font-bold mb-4'>Learning that gets you</h1>
           <p className='text-xl '>Skills for your present and your future. Get Started with US</p>
-        </motion.div>
+        </motion.div> */}
+
+        <motion.p
+          initial={{opacity: 0}}
+          whileInView={{opacity: 1}}
+          viewport={{once: true}}
+          transition={{duration: 1, delay: 0.5}}
+          className='text-gray-200 md:text-7xl text-5xl tracking-tight mb-4'
+        >
+          {/* HEY, I AM <br /> */}
+          <span className='text-purple-500'>Learning that gets you</span>
+        </motion.p>
+
+        {/* <motion.p
+          initial={{opacity: 0}}
+          whileInView={{opacity: 1}}
+          viewport={{once: true}}
+          transition={{duration: 1, delay: 1}}
+          className='text-gray-300 max-w-[300px] md:max-w-[500px] md:text-2xl text-lg mb-6'
+        >
+          Skills for your present and your future. Get Started with US
+        </motion.p> */}
 
         {/* Image Section */}
         <motion.div
@@ -122,8 +143,7 @@ function StudentHomePage() {
               >
                 <Button
                   // className='bg-white font-semibold shadow-md rounded-xl p-6 flex items-center justify-center text-lg text-gray-700 border border-teal hover:bg-white hover:border-gold hover:text-gold hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out'
-                  className="bg-white font-semibold shadow-md rounded-xl p-6 flex items-center justify-center text-lg text-gray-700 border border-teal hover:bg-white hover:border-gold hover:text-gold hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out text-[clamp(1rem,_2vw,_1.5rem)]"
-
+                  className='bg-white font-semibold shadow-md rounded-xl p-6 flex items-center justify-center text-lg text-gray-700 border border-teal hover:bg-white hover:border-gold hover:text-gold hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out text-[clamp(1rem,_2vw,_1.5rem)]'
                   style={{
                     aspectRatio: '1 / 1', // Keeps buttons perfectly square
                     width: '100%', // Ensures it fills the grid cell

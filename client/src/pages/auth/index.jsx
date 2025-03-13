@@ -113,26 +113,17 @@
 
 // export default AuthPage;
 
-
-
-
-import CommonForm from "@/components/common-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { signInFormControls, signUpFormControls } from "@/config";
-import { AuthContext } from "@/context/auth-context";
-import { GraduationCap } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import CommonForm from '@/components/common-form';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import {signInFormControls, signUpFormControls} from '@/config';
+import {AuthContext} from '@/context/auth-context';
+import {GraduationCap} from 'lucide-react';
+import {useContext, useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
 function AuthPage() {
-  const [activeTab, setActiveTab] = useState("signin");
+  const [activeTab, setActiveTab] = useState('signin');
   const {
     signInFormData,
     setSignInFormData,
@@ -150,16 +141,16 @@ function AuthPage() {
   // Redirect if user is already authenticated
   useEffect(() => {
     if (auth.authenticate) {
-      navigate("/dashboard"); // Change to your dashboard route
+      navigate('/dashboard'); // Change to your dashboard route
     }
   }, [auth, navigate]);
 
-  const handleTabChange = (value) => {
+  const handleTabChange = value => {
     setActiveTab(value);
     setError(null); //  Clear error when switching tabs
     // Reset form data when switching tabs
-    setSignInFormData({ userEmail: "", password: "" });
-    setSignUpFormData({ userName: "", userEmail: "", password: "", role: "" });
+    setSignInFormData({userEmail: '', password: ''});
+    setSignUpFormData({userName: '', userEmail: '', password: '', role: ''});
   };
 
   const isSignInFormValid = () =>
@@ -169,58 +160,61 @@ function AuthPage() {
     signUpFormData.userName &&
     signUpFormData.userEmail &&
     signUpFormData.password &&
-    signUpFormData.role &&  signUpFormData.password.length >= 6;
+    signUpFormData.role &&
+    signUpFormData.password.length >= 6;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <Link to="/" className="flex items-center justify-center">
-          <GraduationCap className="h-8 w-8 mr-4 text-teal" />
-          <span className="font-extrabold md:text-xl text-[14px]">
-            <span className="text-gold">DECENTRA</span>
-            <span className="text-teal">TEACH</span>
+    <div className='flex flex-col min-h-screen'>
+      <header className='px-4 lg:px-6 h-14 flex items-center border-b'>
+        <Link to='/' className='flex items-center justify-center'>
+          <GraduationCap className='h-8 w-8 mr-4 text-teal' />
+          <span className='font-extrabold md:text-xl text-[14px]'>
+            <span className='text-gold'>DECENTRA</span>
+            <span className='text-teal'>TEACH</span>
           </span>
         </Link>
       </header>
 
-      <div className="flex items-center justify-center min-h-screen bg-background">
+      <div className='flex items-center justify-center min-h-screen bg-background'>
         <Tabs
           value={activeTab}
-          defaultValue="signin"
+          defaultValue='signin'
           onValueChange={handleTabChange}
-          className="w-full max-w-md"
+          className='w-full max-w-md'
         >
-          <TabsList className="grid w-full grid-cols-2 border-teal border-2">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+          <TabsList className='grid w-full grid-cols-2 border-teal border-2'>
+            <TabsTrigger value='signin'>Sign In</TabsTrigger>
+            <TabsTrigger value='signup'>Sign Up</TabsTrigger>
           </TabsList>
 
           {/* Sign In Tab */}
-          <TabsContent value="signin">
-            <Card className="border-teal border-2 p-6 rounded-lg shadow-lg bg-white hover:shadow-teal hover:shadow-xl">
+          <TabsContent value='signin'>
+            <Card className='border-teal border-2 p-6 rounded-lg shadow-lg bg-white hover:shadow-teal hover:shadow-xl'>
               <CardHeader>
                 <CardTitle>Sign in to your account</CardTitle>
                 <CardDescription>
                   Enter your email and password to access your account
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className='space-y-2'>
                 <CommonForm
                   formControls={signInFormControls}
-                  buttonText="Sign In"
+                  buttonText='Sign In'
                   formData={signInFormData}
                   setFormData={setSignInFormData}
                   isButtonDisabled={!isSignInFormValid()}
                   handleSubmit={handleLoginUser}
                 />
-                {activeTab === "signin" && (
-                  <div className="mt-2 space-y-1">
-                    {error?.username && (
-                      <p className="text-red-500 text-sm">{error.username}</p>
-                    )}
-                    {error?.password && (
-                      <p className="text-red-500 text-sm">{error.password}</p>
-                    )}
+                {/* {activeTab === 'signin' && (
+                  <div className='mt-2 space-y-1'>
+                    {error?.username && <p className='text-red-500 text-sm'>{error.username}</p>}
+                    {error?.password && <p className='text-red-500 text-sm'>{error.password}</p>}
+                  </div>
+                )} */}
+                {activeTab === 'signin' && (
+                  <div className='mt-2 space-y-1 text-center'>
+                    {error?.username && <p className='text-red-500 text-sm'>{error.username}</p>}
+                    {error?.password && <p className='text-red-500 text-sm'>{error.password}</p>}
                   </div>
                 )}
               </CardContent>
@@ -228,25 +222,33 @@ function AuthPage() {
           </TabsContent>
 
           {/* Sign Up Tab */}
-          <TabsContent value="signup">
-            <Card className="border-teal border-2 p-6 rounded-lg shadow-lg bg-white hover:shadow-teal hover:shadow-xl">
+          <TabsContent value='signup'>
+            <Card className='border-teal border-2 p-6 rounded-lg shadow-lg bg-white hover:shadow-teal hover:shadow-xl'>
               <CardHeader>
                 <CardTitle>Create a new account</CardTitle>
-                <CardDescription>
-                  Fill in your details to register an account
-                </CardDescription>
+                <CardDescription>Fill in your details to register an account</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className='space-y-2'>
                 <CommonForm
                   formControls={signUpFormControls}
-                  buttonText="Sign Up"
+                  buttonText='Sign Up'
                   formData={signUpFormData}
                   setFormData={setSignUpFormData}
                   isButtonDisabled={!isSignUpFormValid()}
                   handleSubmit={handleRegisterUser}
                 />
-                {error && activeTab === "signup" && (
-                  <p className="text-red-500 text-sm mt-2">{error.password}</p>
+                {/* {error && activeTab === 'signup' && (
+                  // <p className="text-red-500 text-sm mt-2">{error.password}</p>
+                  <p className='text-red-500 text-sm mt-2 ml-4 text-center'>{error.password}</p>
+                )} */}
+                {error && activeTab === 'signup' && (
+                  <p
+                    className={`text-sm mt-2 ml-4 text-center ${
+                      error.username === 'regist' ? 'text-green-500' : 'text-red-500'
+                    }`}
+                  >
+                    {error.password}
+                  </p>
                 )}
               </CardContent>
             </Card>

@@ -142,7 +142,7 @@ function AuthPage() {
     handleLoginUser,
     auth,
     error,
-    setError, // ✅ Add this to reset error
+    setError, //  Add this to reset error
   } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -156,20 +156,20 @@ function AuthPage() {
 
   const handleTabChange = (value) => {
     setActiveTab(value);
-    setError(null); // ✅ Clear error when switching tabs
+    setError(null); //  Clear error when switching tabs
     // Reset form data when switching tabs
     setSignInFormData({ userEmail: "", password: "" });
     setSignUpFormData({ userName: "", userEmail: "", password: "", role: "" });
   };
 
   const isSignInFormValid = () =>
-    signInFormData.userEmail && signInFormData.password;
+    signInFormData.userEmail && signInFormData.password && signInFormData.password.length >= 6;
 
   const isSignUpFormValid = () =>
     signUpFormData.userName &&
     signUpFormData.userEmail &&
     signUpFormData.password &&
-    signUpFormData.role;
+    signUpFormData.role &&  signUpFormData.password.length >= 6;
 
   return (
     <div className="flex flex-col min-h-screen">
